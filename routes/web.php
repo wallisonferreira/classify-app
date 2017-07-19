@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/titles/watched', 'TitleController@titleMostWatched');
+
+    Route::get('/adicionar/lista/{titulo}', 'TitleController@addToList');
+    Route::get('/remover/lista/{titulo}', 'TitleController@removeFromList');
+
+    Route::get('/favoritos', 'TitleController@getList');
 });

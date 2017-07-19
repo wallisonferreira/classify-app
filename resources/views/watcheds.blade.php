@@ -9,7 +9,7 @@
         ])@endcomponent
 
         <div class="col-md-9">
-            
+
             @if (session('error'))
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -31,25 +31,23 @@
 
                     <div class="panel-body">
                         <div class="ui five column grid">
-                            @foreach ($watcheds as $watched)
+                            @foreach ($myseens as $seen)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
-                                        <img src="{{ $watched->poster }}" width="150">
+                                        <img src="{{ $seen->poster }}" width="150">
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $watched->name }}</a>
+                                            <a class="header">{{ $seen->name }}</a>
                                             <div class="meta">
-                                                <span class="cinema">{{ $watched->network }}</span>
+                                                <span class="cinema">{{ $seen->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $watched->overview }}</p>
+                                                <p>{{ $seen->overview }}</p>
                                             </div>
-                                            
                                             <div class="extra">
-                                                <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="ui right floated primary button">
-                                                    Adicionar à lista
-                                                    <i class="right chevron icon"></i>
+                                                <a href="{{ url('/remover/assistido/' . $seen->id) }}" class="ui right floated primary button">
+                                                    Remover da lista
                                                 </a>
                                             </div>
                                         </div>

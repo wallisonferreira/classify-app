@@ -9,6 +9,21 @@
         ])@endcomponent
 
         <div class="col-md-9">
+
+            @if (session('error'))
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Espere!</strong> {{ session('error') }}
+            </div>
+            @endif
+
+            @if (session('feedback'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Ok!</strong> {{ session('feedback') }}
+            </div>
+            @endif
+
             <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title"><h3>{{ $subject }}</h3></div>
@@ -31,6 +46,9 @@
                                                 <p>{{ $list->overview }}</p>
                                             </div>
                                             <div class="extra">
+                                                <a href="{{ url('/adicionar/assistido/' . $list->id) }}" class="ui right floated primary button">
+                                                    Adicionar aos assistidos
+                                                </a>
                                                 <a href="{{ url('/remover/lista/' . $list->id) }}" class="ui right floated primary button">
                                                     Remover da lista
                                                 </a>

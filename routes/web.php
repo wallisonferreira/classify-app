@@ -23,4 +23,9 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/remover/lista/{titulo}', 'TitleController@removeFromList');
 
     Route::get('/favoritos', 'TitleController@getList');
+
+    Route::get('/adicionar/assistido/{titulo}', 'TitleController@addToWatched');
+    Route::get('/remover/assistido/{titulo}', 'TitleController@removeFromWatched');
+
+    Route::get('/assistidos', 'TitleController@getWatched');
 });

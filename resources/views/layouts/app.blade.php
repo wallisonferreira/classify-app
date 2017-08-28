@@ -14,10 +14,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/components/dropdown.min.css') }}">
-    <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/semantic.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('css/components/dropdown.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('css/components/script.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -82,5 +78,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/semantic.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('css/components/dropdown.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('css/components/script.js') }}"></script>
 </body>
 </html>

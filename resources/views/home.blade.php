@@ -26,12 +26,12 @@
 
             <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title"><h3>{{ $subject }}</h3></div>
+                        <div class="panel-title"><h3>{{ $subject }} - Fonte IMDB</h3></div>
                     </div>
 
                     <div class="panel-body">
                         <div class="ui five column grid">
-                            @foreach ($watcheds as $watched)
+                            @foreach ($most_watcheds as $watched)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
@@ -43,8 +43,11 @@
                                                 <span class="cinema">{{ $watched->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $watched->overview }}</p>
+                                                <p style="text-align: justify;"><strong>{{ $watched->overview }}</strong></p>
                                             </div>
+                                            <br/>
+                                            <p>Assistido <strong>{{ $watched->play_count }}</strong> Vezes</p>
+                                            <p>Por <strong>{{ $watched->watcher_count }}</strong> Pessoas</p>
                                             
                                             <div class="btn-group pull-right">
                                                 <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="btn btn-default">

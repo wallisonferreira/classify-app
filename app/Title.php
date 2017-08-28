@@ -20,7 +20,8 @@ class Title extends Model
         'network',
         'aired_episodes',
         'poster',
-        'watched',
+        'play_count',
+        'watcher_count',
     ];
 
     public function users()

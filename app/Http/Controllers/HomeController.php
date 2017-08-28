@@ -57,7 +57,8 @@ class HomeController extends Controller
 			$tvdb_id  = ($value['show']['ids']['tvdb']);
 			$imdb_id  = ($value['show']['ids']['imdb']);
 			$tmdb_id  = ($value['show']['ids']['tmdb']);
-			$watched  = ($value['watcher_count']);
+			$watcher_count  = ($value['watcher_count']);
+			$play_count  = ($value['play_count']);
 
 			$query = $this->getSeriesById ( $trakt_id );
 
@@ -84,20 +85,21 @@ class HomeController extends Controller
 					'network'  		 => $network,
 					'aired_epidodes' => $aired_episodes,
 					'poster'		 => $poster,
-					'watched'		 => $watched,
+					'watcher_count'  => $watcher_count,
+					'play_count'	 => $play_count,
 				]);
 
 			}
 
 		}
 
-		$watcheds = Title::orderBy('watched', 'desc')->get();
+		$most_watcheds = Title::orderBy('play_count', 'desc')->get();
         $user = Auth::user();
         $subject = 'Títulos mais assistidos';
 
         $mylist = auth()->user()->titles;
 
-		return view('home', compact('watcheds', 'user', 'subject',  'mylist'));
+		return view('home', compact('most_watcheds', 'user', 'subject',  'mylist'));
     }
 
     /**

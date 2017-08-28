@@ -26,7 +26,8 @@ class CreateTitlesTable extends Migration
             $table->string('network')->nullable();
             $table->integer('aired_episodes')->nullable();
             $table->string('poster')->nullable();
-            $table->integer('watched')->nullable();
+            $table->integer('play_count')->nullable();
+            $table->integer('watcher_count')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

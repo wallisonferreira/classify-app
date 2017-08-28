@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Title', 'lists');
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany('App\Title', 'favorites');
+    }
+
     public function seens()
     {
         return $this->belongsToMany('App\Title', 'seens');

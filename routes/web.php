@@ -19,13 +19,16 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/titles/watched', 'TitleController@titleMostWatched');
 
-    Route::get('/adicionar/lista/{titulo}', 'TitleController@addToList');
-    Route::get('/remover/lista/{titulo}', 'TitleController@removeFromList');
+    Route::get('/adicionar/lista/{titulo}', 'ListController@addToList');
+    Route::get('/remover/lista/{titulo}', 'ListController@removeFromList');
 
-    Route::get('/favoritos', 'TitleController@getList');
+    Route::get('/adicionar/assistido/{titulo}', 'WatchedController@addToWatched');
+    Route::get('/remover/assistido/{titulo}', 'WatchedController@removeFromWatched');
+    
+    Route::get('/adicionar/favorito/{titulo}', 'FavoriteController@addToFavorite');
+    Route::get('/remover/favorito/{titulo}', 'FavoriteController@removeFromFavorite');
 
-    Route::get('/adicionar/assistido/{titulo}', 'TitleController@addToWatched');
-    Route::get('/remover/assistido/{titulo}', 'TitleController@removeFromWatched');
-
+    Route::get('/lista', 'TitleController@getList');
     Route::get('/assistidos', 'TitleController@getWatched');
+    Route::get('/favoritos', 'TitleController@getfavorite');
 });

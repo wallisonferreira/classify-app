@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Client as Guzzle;
+//use GuzzleHttp\Client as Guzzle;
 use App\Title;
 use App\User;
 use App\Seen;
+use App\Favorite;
 
 class TitleController extends Controller
 {
@@ -26,14 +27,14 @@ class TitleController extends Controller
 
 		// $data = json_decode((string) $response->getBody(), true);
 
-		// Adiciona os elementos do response->body em uma array
+		// //Adiciona os elementos do response->body em uma array
 		
 		// $titulos = [];
 		// foreach ($data as $titles => $values) {
 		// 	$titulos = array_prepend($titulos, $values);
 		// }
 
-		// Itera sobre a array de títulos e persiste os seus valores
+		// //Itera sobre a array de títulos e persiste os seus valores
 		// foreach ($titulos as $key => $value) {
 
 		// 	$titulo   = ($value['show']['title']);
@@ -89,9 +90,9 @@ class TitleController extends Controller
     {
     	$mylist = auth()->user()->titles;
         $user = auth()->user();
-        $subject = 'Favoritos';
+        $subject = 'Lista Pessoal';
 
-    	return view('favorites', compact('mylist', 'user', 'subject'));
+    	return view('list', compact('mylist', 'user', 'subject'));
     }
 
     public function addToList (Title $titulo)
@@ -112,11 +113,6 @@ class TitleController extends Controller
         $user = Auth::user();
         $subject = 'Títulos mais assistidos';
 
-        //dd($watcheds);
-		// $request = new Request;
-		// $request->session()->flash('feedback', 'Título adicionado!');
-
-		// return view('home', compact('watcheds', 'user', 'subject'));
 		return redirect('/home')->with('feedback', 'adicionado à lista');
     }
 
@@ -133,10 +129,69 @@ class TitleController extends Controller
 
 		$mylist = auth()->user()->titles;
         $user = auth()->user();
+        $subject = 'Lista Pessoal';
+
+    	return view('list', compact('mylist', 'user', 'subject'));
+    }
+
+	# Gerencia de Favoritos
+
+	public function getFavorite ()
+    {
+    	$myfavorites = auth()->user()->favorites;
+        $user = auth()->user();
         $subject = 'Favoritos';
 
-    	return view('favorites', compact('mylist', 'user', 'subject'));
+    	return view('favorites', compact('myfavorites', 'user', 'subject'));
     }
+
+    public function addToFavorite (Title $titulo)
+    {
+    	$haveInFavorites = ( DB::table('favorites')
+			->where('title_id', $titulo->id)
+			->where('user_id', auth()->user()->id)
+			->count() );
+
+    	if ($haveInFavorites >= 1) {
+			return redirect('/home')->with('error', 'Título já havia sido adicionado aos favoritos!');
+    	}
+
+    	$favorite = Favorite::create([
+    		'user_id'  => auth()->user()->id,
+    		'title_id' => $titulo->id,
+    	]);
+
+        $watcheds = Title::orderBy('watched', 'desc')->get();
+        $user = Auth::user();
+        $subject = 'Favoritos';
+
+		return redirect('/home')->with('feedback', 'adicionado aos favoritos');
+    }
+
+    public function removeFromFavorite (Title $titulo)
+    {
+		$haveInFavorites = ( DB::table('favorites')
+			->where('title_id', $titulo->id)
+			->where('user_id', auth()->user()->id)
+			->count() );
+
+		if ($haveInFavorites >= 1) {
+			$haveInFavorites = ( DB::table('favorites')
+				->where('title_id', $titulo->id)
+				->where('user_id', auth()->user()->id)
+				->delete()
+			);
+		}
+
+
+		$mylist = auth()->user()->titles;
+        $user = auth()->user();
+        $subject = 'Favoritos';
+
+		return redirect('/favorites')->with('feedback', 'removido!');
+    }
+
+	# Gerencia de Assistidos
 
 	public function getWatched ()
 	{
@@ -155,9 +210,7 @@ class TitleController extends Controller
 			->count() );
 
     	if ($haveInList >= 1) {
-
-    		// return response()->json(" Título já havia sido adicionado aos assistidos! ", 300);
-			return redirect('/favoritos')->with('error', 'Título já havia sido adicionado aos assistidos!');
+			return redirect('/lista')->with('error', 'Título já havia sido adicionado aos assistidos!');
     	}
 
     	$seen = Seen::create([
@@ -165,9 +218,7 @@ class TitleController extends Controller
     		'title_id' => $titulo->id,
     	]);
 
-    	// $titulo->users()->attach([auth()->user()->id]);
-
-        return redirect('/favoritos')->with('feedback', 'Adicionado aos assistidos!');
+        return redirect('/lista')->with('feedback', 'Adicionado aos assistidos!');
     }
 
     public function removeFromWatched (Title $titulo)
@@ -210,71 +261,71 @@ class TitleController extends Controller
 	 */
 	public function getSeriesbyName ($name)
 	{
-		$http = new Guzzle;
+		// $http = new Guzzle;
 
-    	$response = $http->request('GET', 'https://api.trakt.tv/search/show?query=' . $name, [
-    		'headers' => [
-	    		'trakt-api-version' => '2',
-				'Content-Type' 		=> 'application/json',
-				'trakt-api-key' 	=> 'd6173f99570add6363262f97df49f21110abb00891c649db9e68a9855b2e735b'
-    		]
-    	]);
+    	// $response = $http->request('GET', 'https://api.trakt.tv/search/show?query=' . $name, [
+    	// 	'headers' => [
+	    // 		'trakt-api-version' => '2',
+		// 		'Content-Type' 		=> 'application/json',
+		// 		'trakt-api-key' 	=> 'd6173f99570add6363262f97df49f21110abb00891c649db9e68a9855b2e735b'
+    	// 	]
+    	// ]);
 
-		$data = json_decode((string) $response->getBody(), true);
+		// $data = json_decode((string) $response->getBody(), true);
 
-		// Adiciona os elementos do response->body em uma array
-		$titulos = [];
-		foreach ($data as $titles => $values) {
-			$titulos = array_prepend($titulos, $values);
-		}
+		// // Adiciona os elementos do response->body em uma array
+		// $titulos = [];
+		// foreach ($data as $titles => $values) {
+		// 	$titulos = array_prepend($titulos, $values);
+		// }
 
-		// Itera sobre a array de títulos e persiste os seus valores
-		foreach ($titulos as $key => $value) {
+		// // Itera sobre a array de títulos e persiste os seus valores
+		// foreach ($titulos as $key => $value) {
 
-			$titulo   = ($value['show']['title']);
-			$year     = ($value['show']['year']);
-			$slug     = ($value['show']['ids']['slug']);
-			$trakt_id = ($value['show']['ids']['trakt']);
-			$tvdb_id  = (isset($value['show']['ids']['tvdb']) ? $value['show']['ids']['tvdb'] : null);
-			$imdb_id  = (isset($value['show']['ids']['imdb']) ? $value['show']['ids']['imdb'] : null);
-			$tmdb_id  = (isset($value['show']['ids']['tmdb']) ? $value['show']['ids']['tmdb'] : null);
-			$watched  = (isset($value['watcher_count']) ? $value['watcher_count'] : null);
+		// 	$titulo   = ($value['show']['title']);
+		// 	$year     = ($value['show']['year']);
+		// 	$slug     = ($value['show']['ids']['slug']);
+		// 	$trakt_id = ($value['show']['ids']['trakt']);
+		// 	$tvdb_id  = (isset($value['show']['ids']['tvdb']) ? $value['show']['ids']['tvdb'] : null);
+		// 	$imdb_id  = (isset($value['show']['ids']['imdb']) ? $value['show']['ids']['imdb'] : null);
+		// 	$tmdb_id  = (isset($value['show']['ids']['tmdb']) ? $value['show']['ids']['tmdb'] : null);
+		// 	$watched  = (isset($value['watcher_count']) ? $value['watcher_count'] : null);
 
-			$query = $this->getSeriesById ( $trakt_id );
+		// 	$query = $this->getSeriesById ( $trakt_id );
 
-			$overview 		= (isset($query['overview']) ? $query['overview'] : null);
-			$network  		= (isset($query['network']) ? $query['network'] : null);
-			$aired_episodes = (isset($query['aired_episodes']) ? $query['aired_episodes'] : null);
+		// 	$overview 		= (isset($query['overview']) ? $query['overview'] : null);
+		// 	$network  		= (isset($query['network']) ? $query['network'] : null);
+		// 	$aired_episodes = (isset($query['aired_episodes']) ? $query['aired_episodes'] : null);
 
-			$response_poster = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full');
-			$response_poster_body = json_decode((string)$response_poster->getBody(), true);
+		// 	$response_poster = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full');
+		// 	$response_poster_body = json_decode((string)$response_poster->getBody(), true);
 
-			$poster = (isset($response_poster_body['Poster']) ? $response_poster_body['Poster'] : null);
+		// 	$poster = (isset($response_poster_body['Poster']) ? $response_poster_body['Poster'] : null);
 
-			if( (DB::table('titles')->where('trakt', $trakt_id)->count()) === 0 ) {
+		// 	if( (DB::table('titles')->where('trakt', $trakt_id)->count()) === 0 ) {
 				
-				Title::create([
-					'title'  		 => $titulo,
-					'year'	 		 => $year,
-					'slug'	 		 => $slug,
-					'trakt'  		 => $trakt_id,
-					'tvdb'	 		 => $tvdb_id,
-					'imdb'	 		 => $imdb_id,
-					'tmdb'	 		 => $tmdb_id,
-					'overview' 		 => $overview,
-					'network'  		 => $network,
-					'aired_epidodes' => $aired_episodes,
-					'poster'		 => $poster,
-					'watched'		 => $watched,
-				]);
+		// 		Title::create([
+		// 			'title'  		 => $titulo,
+		// 			'year'	 		 => $year,
+		// 			'slug'	 		 => $slug,
+		// 			'trakt'  		 => $trakt_id,
+		// 			'tvdb'	 		 => $tvdb_id,
+		// 			'imdb'	 		 => $imdb_id,
+		// 			'tmdb'	 		 => $tmdb_id,
+		// 			'overview' 		 => $overview,
+		// 			'network'  		 => $network,
+		// 			'aired_epidodes' => $aired_episodes,
+		// 			'poster'		 => $poster,
+		// 			'watched'		 => $watched,
+		// 		]);
 
-			}
+		// 	}
 
-		}
+		// }
 
-		$query_name = Title::where('title', 'like', '%' . $name . '%')->get();
+		// $query_name = Title::where('title', 'like', '%' . $name . '%')->get();
 
-		return response()->json($query_name, 200);
+		// return response()->json($query_name, 200);
 	}
 
 

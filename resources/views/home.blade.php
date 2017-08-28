@@ -46,10 +46,15 @@
                                                 <p>{{ $watched->overview }}</p>
                                             </div>
                                             
-                                            <div class="extra">
-                                                <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="ui right floated primary button">
-                                                    Adicionar à lista
-                                                    <i class="right chevron icon"></i>
+                                            <div class="btn-group pull-right">
+                                                <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="btn btn-default">
+                                                    <i class="right list icon"></i>
+                                                </a>
+                                                <a href="{{ url('/adicionar/favorito/' . $watched->id) }}" class="btn btn-default">
+                                                    <i class="right favorite icon"></i>
+                                                </a>
+                                                <a href="{{ url('/adicionar/assistido/' . $watched->id) }}" class="btn btn-default">
+                                                    <i class="right eye icon"></i>
                                                 </a>
                                             </div>
                                         </div>

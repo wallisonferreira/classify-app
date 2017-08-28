@@ -27,9 +27,10 @@
             <div class="panel-heading">Acervo</div>
             <div class="panel-body">
                 <div class="list-group">
-                    <a href="{{ url('/') }}" class="list-group-item">Início</a>
-                    <a href="{{ url('/favoritos') }}" class="list-group-item">Lista Pessoal</a>
-                    <a href="{{ url('/assistidos') }}" class="list-group-item">Assistidos</a>
+                    <a href="{{ url('/') }}" class="list-group-item">Início<i class="pull-right home icon"></i></a>
+                    <a href="{{ url('/lista') }}" class="list-group-item">Lista Pessoal<i class="pull-right list icon"></i></a>
+                    <a href="{{ url('/favoritos') }}" class="list-group-item">Favoritos<i class="pull-right favorite icon"></i></a>
+                    <a href="{{ url('/assistidos') }}" class="list-group-item">Assistidos<i class="pull-right eye icon"></i></a>
                 </div>
             </div>
         </div>

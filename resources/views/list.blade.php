@@ -31,22 +31,22 @@
 
                     <div class="panel-body">
                         <div class="ui five column grid">
-                            @foreach ($myseens as $seen)
+                            @foreach ($mylist as $list)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
-                                        <img src="{{ $seen->poster }}" width="150">
+                                        <img src="{{ $list->poster }}" width="150">
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $seen->name }}</a>
+                                            <a class="header">{{ $list->name }}</a>
                                             <div class="meta">
-                                                <span class="cinema">{{ $seen->network }}</span>
+                                                <span class="cinema">{{ $list->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $seen->overview }}</p>
+                                                <p>{{ $list->overview }}</p>
                                             </div>
                                             <div class="btn-group pull-right">
-                                                <a href="{{ url('/remover/assistido/' . $seen->id) }}" class="btn btn-default">
+                                                <a href="{{ url('/remover/lista/' . $list->id) }}" class="btn btn-default">
                                                     Remover<i class="right remove icon"></i>
                                                 </a>
                                             </div>

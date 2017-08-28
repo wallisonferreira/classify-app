@@ -9,11 +9,11 @@
         ])@endcomponent
 
         <div class="col-md-9">
-
+            
             @if (session('error'))
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Espere!</strong> {{ session('error') }}
+                <strong>Título Duplicado!</strong> {{ session('error') }}
             </div>
             @endif
 
@@ -31,26 +31,24 @@
 
                     <div class="panel-body">
                         <div class="ui five column grid">
-                            @foreach ($mylist as $list)
+                            @foreach ($myfavorites as $favorite)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
-                                        <img src="{{ $list->poster }}" width="150">
+                                        <img src="{{ $favorite->poster }}" width="150">
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $list->name }}</a>
+                                            <a class="header">{{ $favorite->name }}</a>
                                             <div class="meta">
-                                                <span class="cinema">{{ $list->network }}</span>
+                                                <span class="cinema">{{ $favorite->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $list->overview }}</p>
+                                                <p>{{ $favorite->overview }}</p>
                                             </div>
-                                            <div class="extra">
-                                                <a href="{{ url('/adicionar/assistido/' . $list->id) }}" class="ui right floated primary button">
-                                                    Adicionar aos assistidos
-                                                </a>
-                                                <a href="{{ url('/remover/lista/' . $list->id) }}" class="ui right floated primary button">
-                                                    Remover da lista
+                                            
+                                            <div class="btn-group pull-right">
+                                                <a href="{{ url('/remover/favorito/' . $favorite->id) }}" class="btn btn-default">
+                                                    Remover<i class="right remove icon"></i>
                                                 </a>
                                             </div>
                                         </div>

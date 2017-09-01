@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEvaluatesTable extends Migration
+class AddForeignKeysToComments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateEvaluatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluates', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('title_id')->unsigned();
-            $table->integer('nota');
-            $table->timestamps();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('title_id')->references('id')->on('titles');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateEvaluatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluates');
+        Schema::dropIfExists('comments');
     }
 }

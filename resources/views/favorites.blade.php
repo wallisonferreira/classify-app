@@ -31,29 +31,36 @@
 
                     <div class="panel-body">
                         <div class="ui five column grid">
+                        <div class="ui horizontal divider"><i class="tag icon"></i>Títulos</div>
                             @foreach ($myfavorites as $favorite)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
-                                        <img src="{{ $favorite->poster }}" width="150">
+                                        <a href="{{ url('/ver/titulo/' . $favorite->id) }}">
+                                            <img src="{{ $favorite->poster }}" width="150">
+                                        </a>
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $favorite->name }}</a>
+                                            <a href="{{ url('/ver/titulo/' . $favorite->id) }}" class="header">{{ $favorite->name }}</a>
                                             <div class="meta">
                                                 <span class="cinema">{{ $favorite->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $favorite->overview }}</p>
+                                                <p style="text-align: justify;"><strong>{{ $favorite->overview }}</strong></p>
                                             </div>
+                                            <br/>
+                                            <p>Assistido <strong>{{ $favorite->play_count }}</strong> Vezes</p>
+                                            <p>Por <strong>{{ $favorite->watcher_count }}</strong> Pessoas</p>
                                             
-                                            <div class="btn-group pull-right">
-                                                <a href="{{ url('/remover/favorito/' . $favorite->id) }}" class="btn btn-default">
-                                                    Remover<i class="right remove icon"></i>
+                                            <div class="pull-right">
+                                                <a href="{{ url('/remover/favorito/' . $favorite->id) }}" class="ui icon button">
+                                                    Remover<i class="ui remove icon"></i>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>         
+                                </div>
+                                <div class="ui horizontal divider"><i class="circle icon"></i></div>         
                             @endforeach
                         </div>
                     </div>

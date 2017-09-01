@@ -31,4 +31,10 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/lista', 'TitleController@getList');
     Route::get('/assistidos', 'TitleController@getWatched');
     Route::get('/favoritos', 'TitleController@getfavorite');
+
+    Route::get('/ver/titulo/{titulo}', 'TitleController@getTitle');
+    Route::get('/search', 'TitleController@getSearch');
+
+    Route::get('/avaliar/{titulo}/{nota}');
+    Route::get('/comentar/{titulo}/{comentario}');
 });

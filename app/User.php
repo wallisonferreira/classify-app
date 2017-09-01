@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','curador',
     ];
 
     /**
@@ -40,5 +41,15 @@ class User extends Authenticatable
     public function seens()
     {
         return $this->belongsToMany('App\Title', 'seens');
+    }
+
+    public function evaluates()
+    {
+        return $this->hasMany('App\Evaluate');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

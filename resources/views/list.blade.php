@@ -31,28 +31,36 @@
 
                     <div class="panel-body">
                         <div class="ui five column grid">
+                        <div class="ui horizontal divider"><i class="tag icon"></i>Títulos</div>
                             @foreach ($mylist as $list)
                                 <div class="ui divided items">
                                     <div class="item">
                                         <div class="image">
-                                        <img src="{{ $list->poster }}" width="150">
+                                            <a href="{{ url('/ver/titulo/' . $list->id) }}">
+                                                <img src="{{ $list->poster }}" width="150">
+                                            </a>
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $list->name }}</a>
+                                            <a class="header">{{ $list->title }}</a>
                                             <div class="meta">
                                                 <span class="cinema">{{ $list->network }}</span>
                                             </div>
                                             <div class="description">
-                                                <p>{{ $list->overview }}</p>
+                                                <p style="text-align: justify;"><strong>{{ $list->overview }}</strong></p>
                                             </div>
-                                            <div class="btn-group pull-right">
-                                                <a href="{{ url('/remover/lista/' . $list->id) }}" class="btn btn-default">
-                                                    Remover<i class="right remove icon"></i>
+                                            <br/>
+                                            <p>Assistido <strong>{{ $list->play_count }}</strong> Vezes</p>
+                                            <p>Por <strong>{{ $list->watcher_count }}</strong> Pessoas</p>
+
+                                            <div class="pull-right">
+                                                <a href="{{ url('/remover/lista/' . $list->id) }}" class="ui icon button">
+                                                    Remover<i class="ui remove icon"></i>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>         
+                                </div>
+                                <div class="ui horizontal divider"><i class="circle icon"></i></div>         
                             @endforeach
                         </div>
                     </div>

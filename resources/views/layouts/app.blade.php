@@ -12,8 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">-->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/icon.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/components/dropdown.min.css') }}">
+
 </head>
 <body>
     <div id="app">
@@ -41,12 +45,13 @@
                         &nbsp;
                     </ul>
 
+
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('register') }}">Registrar</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -58,7 +63,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Sair
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -69,6 +74,15 @@
                             </li>
                         @endif
                     </ul>
+                    @if (Auth::guest())
+                    @else
+                    <form class="navbar-form navbar-right" action="{{ url('/search') }}" method="get">
+                        <div class="form-group">
+                        <input name="titleName" type="text" class="form-control" placeholder="Ex: Game of Thrones">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                    </form>
+                    @endif
                 </div>
             </div>
         </nav>
@@ -79,8 +93,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('js/semantic.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('css/components/dropdown.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/semantic.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('css/components/script.js') }}"></script>
 </body>
 </html>

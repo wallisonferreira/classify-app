@@ -37,7 +37,7 @@ class ListController extends Controller
 
     	$titulo->users()->attach([auth()->user()->id]);
 
-        $watcheds = Title::orderBy('watched', 'desc')->get();
+        $watcheds = Title::orderBy('play_count', 'desc')->get();
         $user = Auth::user();
         $subject = 'Títulos mais assistidos';
 
@@ -52,7 +52,7 @@ class ListController extends Controller
 			->count() );
 
 		if ($haveInList >= 1) {
-            
+
 			$titulo->users()->detach([auth()->user()->id]);
 		}
 

@@ -176,10 +176,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class,
 
         /*
          * Application packages
          */
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

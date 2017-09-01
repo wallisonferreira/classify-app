@@ -10,9 +10,28 @@ use App\Title;
 use App\User;
 use App\Seen;
 use App\Favorite;
+use Search;
 
 class TitleController extends Controller
 {
+	public function getTitle ($id)
+    {
+    	$title = Title::where('id', $id)->first();
+		$user = Auth::user();
+
+    	return view('title', compact('title', 'subject', 'user'));
+    }
+
+	public function getSearch(Request $request){
+		$title = $request->input('titleName');
+		$most_watcheds = Title::search($title)->get();
+
+		$user = Auth::user();
+        $subject = 'Resultado da busca: ' . $title;
+
+		return view('home', compact('most_watcheds', 'user', 'subject'));
+	}
+
     public function titleMostWatched ()
     {
     	// $http = new Guzzle;
@@ -245,13 +264,6 @@ class TitleController extends Controller
     	$myWatched = auth()->user()->seens;
 
     	return response()->json($myWatched, 200);
-    }
-
-    public function getTitle ($id)
-    {
-    	$title = Title::where('id', $id)->get();
-
-    	return response()->json($title, 200);
     }
 
     /**

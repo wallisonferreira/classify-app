@@ -39,7 +39,7 @@ class FavoriteController extends Controller
     		'title_id' => $titulo->id,
     	]);
 
-        $watcheds = Title::orderBy('watched', 'desc')->get();
+        $watcheds = Title::orderBy('play_count', 'desc')->get();
         $user = Auth::user();
         $subject = 'Favoritos';
 

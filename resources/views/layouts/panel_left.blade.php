@@ -1,24 +1,22 @@
 <div class="col-md-3">
     <row>
         <div class="ui card">
-            <div class="image">
-                <!--<img src="{{-- asset('img/perfil_padrao.jpg') --}}">-->
-            </div>
             <div class="content">
-                <a class="header">{{ $user->name }}</a>
-                <div class="meta">
-                <span class="date">Criado em: {{  date_format($user->created_at, 'd-m-Y H:i:s') }}</span>
-                </div>
-                <div class="description">
-                Membro comum
-                </div>
+                <img class="ui avatar image large" src="{{ asset('img/perfil_padrao.jpg') }}">{{ $user->name }}
             </div>
-            <!--<div class="extra content">
-                <a>
-                <i class="user icon"></i>
-                22 Friends
-                </a>
-            </div>-->
+                <div class="content">
+                    <!--<a class="header">{{-- $user->name --}}</a>-->
+                    <div class="meta">
+                    <span class="date">Criado em: {{  date_format($user->created_at, 'd-m-Y') }}</span>
+                    </div>
+                    <div class="content">
+                    @if (Auth::user()->curador == 1)
+                        <div>Membro Curador<i class="spy icon large pull-right"></i></div>
+                    @else
+                        <div>Membro Comum<i class="user icon large pull-right"></i></div>
+                    @endif
+                    </div>
+                </div>
         </div>
     </row>
     &nbsp
@@ -27,10 +25,10 @@
             <div class="panel-heading">Acervo</div>
             <div class="panel-body">
                 <div class="list-group">
-                    <a href="{{ url('/') }}" class="list-group-item">Início<i class="pull-right home icon"></i></a>
-                    <a href="{{ url('/lista') }}" class="list-group-item">Lista Pessoal<i class="pull-right list icon"></i></a>
-                    <a href="{{ url('/favoritos') }}" class="list-group-item">Favoritos<i class="pull-right favorite icon"></i></a>
-                    <a href="{{ url('/assistidos') }}" class="list-group-item">Assistidos<i class="pull-right eye icon"></i></a>
+                    <a href="{{ url('/') }}" class="list-group-item">Início<i class="pull-right home icon large"></i></a>
+                    <a href="{{ url('/lista') }}" class="list-group-item">Lista Pessoal<i class="pull-right list icon large"></i></a>
+                    <a href="{{ url('/favoritos') }}" class="list-group-item">Favoritos<i class="pull-right favorite icon large"></i></a>
+                    <a href="{{ url('/assistidos') }}" class="list-group-item">Assistidos<i class="pull-right eye icon large"></i></a>
                 </div>
             </div>
         </div>

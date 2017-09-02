@@ -14,6 +14,8 @@ class Comment extends Model
         'texto',
     ];
 
+    protected $with = ['user'];
+
     public function titles()
     {
         return $this->hasMany('App\Title');
@@ -21,6 +23,6 @@ class Comment extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 }

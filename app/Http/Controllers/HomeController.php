@@ -40,6 +40,9 @@ class HomeController extends Controller
 
         // $http = new Guzzle;
 
+		// #-----------------------------------------------------
+		// # Trakt.tv API
+		// #-----------------------------------------------------
     	// $response = $http->request('GET', 'https://api.trakt.tv/shows/watched/period', [
     	// 	'headers' => [
 	    // 		'trakt-api-version' => '2',
@@ -75,10 +78,21 @@ class HomeController extends Controller
 		// 	$network  		= $query['network'];
 		// 	$aired_episodes = $query['aired_episodes'];
 
-		// 	$response_poster = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full&apikey=d4ed399');
-		// 	$response_poster_body = json_decode((string)$response_poster->getBody(), true);
+		// 	#-----------------------------------------------------
+		// 	# OMDB API - Brian Fritz
+		// 	#-----------------------------------------------------
+		// 	$response_omdb = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full&apikey=d4ed399');
+		// 	$response_omdb_body = json_decode((string)$response_omdb->getBody(), true);
 
-		// 	$poster = $response_poster_body['Poster'];
+		// 	$poster = $response_omdb_body['Poster'];
+		// 	$genre = $response_omdb_body['Genre'];
+		// 	$director = $response_omdb_body['Director'];
+		// 	$writer = $response_omdb_body['Writer'];
+		// 	$actors = $response_omdb_body['Actors'];
+		// 	$plot = $response_omdb_body['Plot'];
+		// 	$awards = $response_omdb_body['Awards'];
+		// 	$imdb_rating = $response_omdb_body['imdbRating'];
+		// 	$imdb_votes = $response_omdb_body['imdbVotes'];
 
 		// 	if( (DB::table('titles')->where('trakt', $trakt_id)->count()) === 0 ) {
 				
@@ -96,6 +110,14 @@ class HomeController extends Controller
 		// 			'poster'		 => $poster,
 		// 			'watcher_count'  => $watcher_count,
 		// 			'play_count'	 => $play_count,
+		// 			'genre'		 	 => $genre,
+		// 			'director'		 => $director,
+		// 			'writer'		 => $writer,
+		// 			'actors'		 => $actors,
+		// 			'plot'		 	 => $plot,
+		// 			'awards'		 => $awards,
+		// 			'imdbRating'	 => $imdb_rating,
+		// 			'imdbVotes'		 => $imdb_votes,
 		// 		]);
 
 		// 	}

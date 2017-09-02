@@ -14,6 +14,8 @@ class Title extends Model
     protected $fillable = [
         'title','trakt','tvdb','imdb','tmdb','year','slug','overview',
         'network','aired_episodes','poster','play_count','watcher_count',
+        'genre','director','writer','actors','plot','awards','imdbRating',
+        'imdbVotes'
     ];
 
     protected $searchableColumns = ['title', 'slug', 'network'];
@@ -21,5 +23,10 @@ class Title extends Model
     public function users()
     {
         return $this->belongsToMany('App\User', 'lists');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

@@ -28,6 +28,16 @@ class CreateTitlesTable extends Migration
             $table->string('poster')->nullable();
             $table->integer('play_count')->nullable();
             $table->integer('watcher_count')->nullable();
+
+            // OMDB API
+            $table->string('genre')->nullable();
+            $table->string('director')->nullable();
+            $table->string('writer')->nullable();
+            $table->string('actors')->nullable();
+            $table->string('plot')->nullable();
+            $table->string('awards')->nullable();
+            $table->string('imdbRating')->nullable();
+            $table->string('imdbVotes')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

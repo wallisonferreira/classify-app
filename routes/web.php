@@ -36,5 +36,6 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/search', 'TitleController@getSearch');
 
     Route::get('/avaliar/{titulo}/{nota}');
-    Route::get('/comentar/{titulo}/{comentario}');
+    Route::get('/adicionar/comentario/{id}', 'TitleController@addComment');
+    Route::get('/remover/comentario/{comment}/{user}/{titulo}', 'TitleController@removeComment');
 });

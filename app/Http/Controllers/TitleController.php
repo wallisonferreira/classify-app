@@ -10,19 +10,24 @@ use App\Title;
 use App\User;
 use App\Seen;
 use App\Favorite;
+use App\Comment;
 use Search;
 
 class TitleController extends Controller
 {
 	public function getTitle ($id)
     {
-    	$title = Title::where('id', $id)->first();
+    	$title = Title::where('id', $id)->with(['comments' => function ($query) {
+			$query->orderBy('created_at', 'desc');
+		}])->first();
+
 		$user = Auth::user();
 
     	return view('title', compact('title', 'subject', 'user'));
     }
 
-	public function getSearch(Request $request){
+	public function getSearch(Request $request)
+	{
 		$title = $request->input('titleName');
 		$most_watcheds = Title::search($title)->get();
 
@@ -32,10 +37,36 @@ class TitleController extends Controller
 		return view('home', compact('most_watcheds', 'user', 'subject'));
 	}
 
+	public function addComment(Request $request, $titulo)
+	{
+		$comment = Comment::create([
+			'user_id'  => auth()->user()->id,
+			'title_id' => $titulo,
+			'texto'	   => $request->input('texto'),
+		]);
+
+		return redirect('/ver/titulo/' . $titulo)->with('feedback', [
+			'agradecimento' => 'Obrigado por comentar',
+			'continue'		=> 'Sua opinião é muito importante!'
+		]);
+	}
+
+	public function removeComment(Comment $comment, $user, $titulo)
+	{
+		if(auth::user()->id == $user) {
+			$comment->delete();
+		}
+
+		return redirect('/ver/titulo/' . $titulo);
+	}
+
     public function titleMostWatched ()
     {
     	// $http = new Guzzle;
 
+		// #-----------------------------------------------------
+		// # Trakt.tv API
+		// #-----------------------------------------------------
     	// $response = $http->request('GET', 'https://api.trakt.tv/shows/watched/period', [
     	// 	'headers' => [
 	    // 		'trakt-api-version' => '2',
@@ -46,14 +77,13 @@ class TitleController extends Controller
 
 		// $data = json_decode((string) $response->getBody(), true);
 
-		// //Adiciona os elementos do response->body em uma array
-		
+		// // Adiciona os elementos do response->body em uma array
 		// $titulos = [];
 		// foreach ($data as $titles => $values) {
 		// 	$titulos = array_prepend($titulos, $values);
 		// }
 
-		// //Itera sobre a array de títulos e persiste os seus valores
+		// // Itera sobre a array de títulos e persiste os seus valores
 		// foreach ($titulos as $key => $value) {
 
 		// 	$titulo   = ($value['show']['title']);
@@ -63,7 +93,8 @@ class TitleController extends Controller
 		// 	$tvdb_id  = ($value['show']['ids']['tvdb']);
 		// 	$imdb_id  = ($value['show']['ids']['imdb']);
 		// 	$tmdb_id  = ($value['show']['ids']['tmdb']);
-		// 	$watched  = ($value['watcher_count']);
+		// 	$watcher_count  = ($value['watcher_count']);
+		// 	$play_count  = ($value['play_count']);
 
 		// 	$query = $this->getSeriesById ( $trakt_id );
 
@@ -71,10 +102,21 @@ class TitleController extends Controller
 		// 	$network  		= $query['network'];
 		// 	$aired_episodes = $query['aired_episodes'];
 
-		// 	$response_poster = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full');
-		// 	$response_poster_body = json_decode((string)$response_poster->getBody(), true);
+		// 	#-----------------------------------------------------
+		// 	# OMDB API - Brian Fritz
+		// 	#-----------------------------------------------------
+		// 	$response_omdb = $http->request('GET', 'http://www.omdbapi.com/?i=' . $imdb_id . '&detail=full&apikey=d4ed399');
+		// 	$response_omdb_body = json_decode((string)$response_omdb->getBody(), true);
 
-		// 	$poster = $response_poster_body['Poster'];
+		// 	$poster = $response_omdb_body['Poster'];
+		// 	$genre = $response_omdb_body['Genre'];
+		// 	$director = $response_omdb_body['Director'];
+		// 	$writer = $response_omdb_body['Writer'];
+		// 	$actors = $response_omdb_body['Actors'];
+		// 	$plot = $response_omdb_body['Plot'];
+		// 	$awards = $response_omdb_body['Awards'];
+		// 	$imdb_rating = $response_omdb_body['imdbRating'];
+		// 	$imdb_votes = $response_omdb_body['imdbVotes'];
 
 		// 	if( (DB::table('titles')->where('trakt', $trakt_id)->count()) === 0 ) {
 				
@@ -90,7 +132,16 @@ class TitleController extends Controller
 		// 			'network'  		 => $network,
 		// 			'aired_epidodes' => $aired_episodes,
 		// 			'poster'		 => $poster,
-		// 			'watched'		 => $watched,
+		// 			'watcher_count'  => $watcher_count,
+		// 			'play_count'	 => $play_count,
+		// 			'genre'		 	 => $genre,
+		// 			'director'		 => $director,
+		// 			'writer'		 => $writer,
+		// 			'actors'		 => $actors,
+		// 			'plot'		 	 => $plot,
+		// 			'awards'		 => $awards,
+		// 			'imdbRating'	 => $imdb_rating,
+		// 			'imdbVotes'		 => $imdb_votes,
 		// 		]);
 
 		// 	}

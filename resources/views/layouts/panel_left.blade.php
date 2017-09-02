@@ -2,10 +2,9 @@
     <row>
         <div class="ui card">
             <div class="content">
-                <img class="ui avatar image large" src="{{ asset('img/perfil_padrao.jpg') }}">{{ $user->name }}
+                <img class="ui avatar image large" src="{{ asset('img/user_perfil.png') }}" width="42">{{ $user->name }}
             </div>
                 <div class="content">
-                    <!--<a class="header">{{-- $user->name --}}</a>-->
                     <div class="meta">
                     <span class="date">Criado em: {{  date_format($user->created_at, 'd-m-Y') }}</span>
                     </div>

@@ -39,7 +39,19 @@
                                             <a href="{{ url('/ver/titulo/' . $watched->id) }}">
                                                 <img src="{{ $watched->poster }}" width="150">
                                             </a>
+                                            <div class="ui items">
+                                                <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="ui icon button" data-tooltip="Adicione este título à sua lista pessoal">
+                                                    <i class="right add icon"></i>
+                                                </a>
+                                                <a href="{{ url('/adicionar/favorito/' . $watched->id) }}" class="ui icon button" data-tooltip="Adicione este título aos seus favoritos">
+                                                    <i class="right favorite icon"></i>
+                                                </a>
+                                                <a href="{{ url('/adicionar/assistido/' . $watched->id) }}" class="ui icon button" data-tooltip="Adicione este título à lista de assistidos por você">
+                                                    <i class="right eye icon"></i>
+                                                </a>
+                                            </div>              
                                         </div>
+                                        
                                         <div class="content">
                                             <a href="{{ url('/ver/titulo/' . $watched->id) }}" class="header">{{ $watched->title }}</a>
                                             <div class="meta">
@@ -55,17 +67,6 @@
                                             <p>Assistido <strong>{{ $watched->play_count }}</strong> Vezes</p>
                                             <p>Por <strong>{{ $watched->watcher_count }}</strong> Pessoas</p>
                                             
-                                            <div class="pull-right">
-                                                <a href="{{ url('/adicionar/lista/' . $watched->id) }}" class="ui icon button" data-content="Adicionar o título à lista pessoal">
-                                                    <i class="right add icon"></i>
-                                                </a>
-                                                <a href="{{ url('/adicionar/favorito/' . $watched->id) }}" class="ui icon button">
-                                                    <i class="right favorite icon"></i>
-                                                </a>
-                                                <a href="{{ url('/adicionar/assistido/' . $watched->id) }}" class="ui icon button">
-                                                    <i class="right eye icon"></i>
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

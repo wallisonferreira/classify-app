@@ -41,7 +41,7 @@
                                         </a>
                                         </div>
                                         <div class="content">
-                                            <a href="{{ url('/ver/titulo/' . $favorite->id) }}" class="header">{{ $favorite->name }}</a>
+                                            <a href="{{ url('/ver/titulo/' . $favorite->id) }}" class="header">{{ $favorite->title }}</a>
                                             <div class="meta">
                                                 <span class="cinema">{{ $favorite->network }}</span>
                                             </div>

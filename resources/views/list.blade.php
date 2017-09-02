@@ -41,7 +41,7 @@
                                             </a>
                                         </div>
                                         <div class="content">
-                                            <a class="header">{{ $list->title }}</a>
+                                            <a href="{{ url('/ver/titulo/' . $list->id) }}" class="header">{{ $list->title }}</a>
                                             <div class="meta">
                                                 <span class="cinema">{{ $list->network }}</span>
                                             </div>

@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/titles/watched', 'TitleController@titleMostWatched');
+    // Route::get('/titles/watched', 'TitleController@titleMostWatched');
 
     Route::get('/adicionar/lista/{titulo}', 'ListController@addToList');
     Route::get('/remover/lista/{titulo}', 'ListController@removeFromList');

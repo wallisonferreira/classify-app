@@ -31,7 +31,7 @@ class FavoriteController extends Controller
 			->count() );
 
     	if ($haveInFavorites >= 1) {
-			return redirect('/home')->with('error', 'Título já havia sido adicionado aos favoritos!');
+			return redirect()->back()->with('error', 'Título já havia sido adicionado aos favoritos!');
     	}
 
     	$favorite = Favorite::create([
@@ -43,7 +43,7 @@ class FavoriteController extends Controller
         $user = Auth::user();
         $subject = 'Favoritos';
 
-		return redirect('/home')->with('feedback', 'adicionado aos favoritos');
+		return redirect()->back()->with('feedback', 'adicionado aos favoritos');
     }
 
     public function removeFromFavorite (Title $titulo)

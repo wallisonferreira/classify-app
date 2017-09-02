@@ -9,6 +9,19 @@
         ])@endcomponent
 
         <div class="col-md-9">
+            @if (session('error'))
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Título Duplicado!</strong> {{ session('error') }}
+            </div>
+            @endif
+
+            @if (session('feedback'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Ok!</strong> {{ session('feedback') }}
+            </div>
+            @endif
 
             <div class="panel panel-default">
                     <div class="panel-heading">
@@ -58,9 +71,10 @@
                                 </div>
                             </div>         
                             <div class="ui horizontal divider"><i class="comment outline icon"></i></div>
+                            <p>Comente sobre este título. Sua opinião é importante <i class="smile icon"></i></p>
                                 <form action="{{ url('/adicionar/comentario/' . $title->id) }}" method="get" class="ui form">
                                     <div class="field">
-                                        <textarea name="texto" rows="3"></textarea>
+                                        <textarea name="texto" rows="2"></textarea>
                                     </div>
                                     <button type="submit" class="ui blue labeled icon button">
                                         <i class="icon edit"></i> Publicar

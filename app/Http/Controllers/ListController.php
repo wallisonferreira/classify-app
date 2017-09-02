@@ -32,7 +32,7 @@ class ListController extends Controller
 
     	if ($haveInList >= 1) {
 
-			return redirect('/home')->with('error', 'Título já havia sido adicionado!');
+			return redirect()->back()->with('error', 'Título já havia sido adicionado!');
     	}
 
     	$titulo->users()->attach([auth()->user()->id]);
@@ -41,7 +41,7 @@ class ListController extends Controller
         $user = Auth::user();
         $subject = 'Títulos mais assistidos';
 
-		return redirect('/home')->with('feedback', 'adicionado à lista');
+		return redirect()->back()->with('feedback', 'adicionado à lista');
     }
 
     public function removeFromList (Title $titulo)

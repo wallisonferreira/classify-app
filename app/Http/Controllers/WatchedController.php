@@ -31,7 +31,7 @@ class WatchedController extends Controller
 			->count() );
 
     	if ($haveInList >= 1) {
-			return redirect('/home')->with('error', 'Título já havia sido adicionado aos assistidos!');
+			return redirect()->back()->with('error', 'Título já havia sido adicionado aos assistidos!');
     	}
 
     	$seen = Seen::create([
@@ -39,7 +39,7 @@ class WatchedController extends Controller
     		'title_id' => $titulo->id,
     	]);
 
-        return redirect('/home')->with('feedback', 'Adicionado aos assistidos!');
+        return redirect()->back()->with('feedback', 'Adicionado aos assistidos!');
     }
 
     public function removeFromWatched (Title $titulo)

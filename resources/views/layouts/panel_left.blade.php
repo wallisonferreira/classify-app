@@ -19,7 +19,7 @@
         </div>
     </row>
     &nbsp
-    <row>
+    <row class="ui sticky">
         <div class="panel panel-default">
             <div class="panel-heading">Acervo</div>
             <div class="panel-body">

@@ -49,7 +49,7 @@ class TitleController extends Controller
 		// 	'agradecimento' => 'Obrigado por comentar',
 		// 	'continue'		=> 'Sua opinião é muito importante!'
 		// ]);
-		return redirect('/ver/titulo/' . $titulo)->with('feedback', 'Obrigado por comentar. Sua opinião é muito importante');
+		return redirect('/ver/titulo/' . $titulo)->with('comment', 'Obrigado por comentar. Sua opinião é muito importante');
 	}
 
 	public function removeComment(Comment $comment, $user, $titulo)

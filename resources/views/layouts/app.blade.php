@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/icon.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/components/dropdown.min.css') }}">
-
+    <script type="javascript" src="{{ asset('js/script.js') }}"></script>
 </head>
 <body>
     <div id="app">
